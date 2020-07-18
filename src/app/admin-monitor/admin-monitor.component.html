@@ -1,0 +1,68 @@
+<div class="jumbotron mainBody">
+  <div class="createSet">
+    <div class="createLabel">
+      <h3 class="lead">
+        TA Log In
+      </h3>
+    </div>
+    <div class="groupOffset">
+      <label>First Name</label>
+      <input type="text" placeholder="Enter first name" [(ngModel)]="firstName" />
+    </div>
+    <div class="groups">
+      <label>Last Name</label>
+      <!-- <input type="number" min="1" max="15" step="1" value="1"> -->
+      <input type="text" placeholder="Enter last name" [(ngModel)]="lastName" />
+    </div>
+    <div class="setName">
+      <label>Set</label>
+      <select
+        #setSelect
+
+        class="set"
+        (change)="onSetSelected(setSelect.value)"
+      >
+      <option disabled selected value> -- select an option -- </option>
+        <option *ngFor="let set of sets | async">{{ set.name }}</option>
+      </select>
+    </div>
+    <div class="groupName">
+      <label>Group</label>
+      <select
+        #groupSelect
+
+        class="group"
+        (change)="onGroupSelected(groupSelect.value)"
+      >
+      <option disabled selected value> -- select an option -- </option>
+        <option *ngFor="let group of groups | async">{{
+          group.groupNumber
+        }}</option>
+      </select>
+    </div>
+    <div class="createSetBtn">
+      <button
+        class="btn btn-lg btn-primary"
+        [disabled]="firstName == '' && lastName == ''"
+        (click)="login()"
+      >
+        Log In
+      </button>
+    </div>
+  </div>
+  <!-- <div class="createSet infoSet">
+    <div>
+      <h3>Info</h3>
+    </div>
+    <div>
+      <h3 class="lead">
+        Please take time to read this if you haven't read this before. An RED
+        Answer window has been added to make it easier to submit your final
+        answer. The final answer for each question should be typed here with an
+        explanation. Once you have completed your answer, the team leader should
+        click the submit button.
+
+      </h3>
+    </div>
+  </div> -->
+</div>
