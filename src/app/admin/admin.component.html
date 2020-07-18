@@ -1,0 +1,120 @@
+<div class="jumbotron mainBody">
+  <div class="createSet">
+    <div class="createLabel">
+      <h3 class="lead">
+        Create a New Set
+      </h3>
+    </div>
+    <div class="groupOffset">
+      <label>Group Offset</label>
+      <input type="number" value="10" step="10" [(ngModel)]="groupOffset" />
+    </div>
+    <div class="groups">
+      <label>Number of Groups</label>
+      <!-- <input type="number" min="1" max="15" step="1" value="1"> -->
+      <input type="number" value="1" [(ngModel)]="groups" />
+    </div>
+    <div class="setName">
+      <label>Set Name</label>
+      <input type="text" placeholder="Enter class name" [(ngModel)]="setName" />
+    </div>
+    <div class="numQuestions">
+      <label>Number of Questions</label>
+      <input type="number" value="1" [(ngModel)]="numQuestions" />
+    </div>
+    <div class="answerWindow">
+      <label>Answer Window</label>
+      <input type="checkbox" checked [(ngModel)]="showAnswerWindow" />
+    </div>
+    <div class="alertTA">
+      <label>Alert TA</label>
+      <input type="checkbox" checked [(ngModel)]="showAlertTA" />
+    </div>
+    <div class="createSetBtn">
+      <button
+        class="btn btn-lg btn-primary"
+        [disabled]="setName == ''"
+        (click)="createSet()"
+      >
+        Create Set
+      </button>
+    </div>
+  </div>
+
+
+  <div class="setInProgress">
+    <div class="createLabel">
+      <h3 class="lead">
+        Sets In Progress
+      </h3>
+    </div>
+    <!-- <div class="setsDiv" *ngFor="let set of sets | async">
+      <div>
+        <h2 class="lead">{{ set.name }}</h2>
+      </div>
+      <div>
+        <button class="btn btn-sm btn-primary" (click)="closeSet(set.name)">Close Set</button>
+      </div>
+    </div> -->
+    <div class="mainsetDiv">
+    <mat-card class="example-card" *ngFor="let set of sets | async">
+      <mat-card-header class="sets-header">
+        <mat-card-title class="title">{{set.name}}</mat-card-title>
+        <mat-card-subtitle>Groups: {{set.groups}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="sets-content">
+
+          <mat-card-subtitle>Questions: {{set.numQuestions}}</mat-card-subtitle>
+          <mat-card-subtitle>Questions: {{set.answerWindow}}</mat-card-subtitle>
+          <mat-card-subtitle>Alert TA: {{set.alertTA}}</mat-card-subtitle>
+
+          <button mat-button (click)="closeSet(set.name)">Close Set</button>
+
+      </mat-card-content>
+      <!-- <mat-card-actions class="sets-button">
+        <button mat-button (click)="closeSet(set.name)">Close Set</button>
+      </mat-card-actions> -->
+    </mat-card>
+  </div>
+  </div>
+  <!-- <div class="setInProgress createSet">
+    <div class="createLabel">
+      <h3 class="lead">
+        Current Set
+      </h3>
+    </div>
+    <div class="groupOffset">
+      <label>Group Offset</label>
+      <input type="number" value="10" step="10" disabled>
+    </div>
+    <div class="groups">
+      <label>Number of Groups</label>
+      <input type="number" min="1" max="15" step="1" value="1">
+      <input type="number" value="1" disabled>
+    </div>
+    <div class="setName">
+      <label>Set Name</label>
+      <input type="text" value="CS 158" disabled>
+    </div>
+    <div class="numQuestions">
+      <label>Number of Questions</label>
+      <input type="number" value="1" disabled>
+    </div>
+    <div class="answerWindow">
+      <label>Answer Window</label>
+      <input type="checkbox" checked disabled>
+    </div>
+    <div class="alertTA">
+      <label>Alert TA</label>
+      <input type="checkbox" checked disabled>
+    </div>
+    <div class="createSetBtn">
+      <a class="btn btn-lg btn-primary" href="" role="button">Close Set</a>
+    </div>
+  </div> -->
+  <!-- <h1>Angular Bootstrap Demo</h1>
+  <p class="lead">
+    This demo shows how to integrate Bootstrap 4 with Angular 7
+  </p>
+  <a class="btn btn-lg btn-primary" href="" role="button">View tutorial</a> -->
+</div>

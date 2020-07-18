@@ -1,0 +1,76 @@
+<div class="jumbotron mainBody">
+  <div class="createSet">
+    <div class="createLabel">
+      <h3 class="lead">
+        Chat
+      </h3>
+    </div>
+    <div class="groupOffset" id="groupOff">
+      <div *ngFor="let message of messages | async">
+        <h3 class="lead name">
+          {{ message.firstName }} {{ message.lastName }}:
+        </h3>
+        <h3 class="lead message">
+          {{ message.message }}
+        </h3>
+        <h3 class="lead time">
+          {{ message.createdAt | date: "short" }}
+        </h3>
+      </div>
+    </div>
+    <div class="groups">
+      <input
+        type="text"
+        placeholder="Enter a message"
+        [(ngModel)]="message"
+        (keyup)="onKey($event)"
+        (keyup.enter)="sendMessage()"
+      />
+      <button
+        class="btn btn-lg btn-primary"
+        [disabled]="message == ''"
+        (click)="sendMessage()"
+      >
+        Send
+      </button>
+    </div>
+
+
+  </div>
+
+  <div class="setInProgress">
+    <div class="createLabel">
+      <div>
+        <h3 class="lead">
+          Users Present
+        </h3>
+      </div>
+      <div class="logOut">
+        <button class="btn btn-sm btn-primary" (click)="logOut()">Log Out</button>
+      </div>
+    </div>
+    <div *ngFor="let user of users | async" [ngStyle]="{'background-color': user.role === 'ta' ? '#fd745c' : '#ceeace'}" class="setsDiv">
+      <div>
+        <span *ngIf="user.role == 'ta'">TA </span>
+        <h2 class="lead">{{ user.firstName }} {{ user.lastName }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="onAnswerWindow || onAlertTA" class="jumbotron mainBody">
+  <div *ngIf="onAnswerWindow" class="createSet">
+    <div class="createLabel">
+      <h3 class="lead">
+        Answer Window
+      </h3>
+    </div>
+  </div>
+  <div *ngIf="onAlertTA" class="createSet">
+    <div class="createLabel">
+      <h3 class="lead">
+        Alert Ta
+      </h3>
+    </div>
+  </div>
+</div>

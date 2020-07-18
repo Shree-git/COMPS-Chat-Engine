@@ -1,0 +1,25 @@
+.mainDiv{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sets-card{
+  background-color: bisque;
+  margin: 10px;
+  padding: 0 !important;
+}
+
+.sets-header{
+  background-color: rgb(94, 94, 94);
+  color: white;
+
+}
+
+.sets-header .title{
+  font-weight: 500;
+  font-size: large;
+}
+
+.sets-content{
+  padding: 10px;
+}

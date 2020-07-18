@@ -1,0 +1,85 @@
+:root{
+  --firstColor: #e23720;
+  --secondColor: #00ccff;
+}
+
+.mainBody{
+  background-color: #fff;
+  height: calc(95vh);
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.createSet{
+  background-color: #ceceee;
+  flex: 1.75 1 300px;
+  height: 500px;
+  border-radius: 10px;
+  border: 2px solid black;
+  margin: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  /* align-items: center; */
+}
+
+.createSet>*{
+  /* background-color: aquamarine; */
+  /* margin: 10px 10px;
+  padding: 10px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.createSet>*>*{
+  margin: 5px 40px;
+
+}
+
+.createSet>*>label{
+  /* float: left; */
+  flex: 1;
+  font-weight: 200;
+  font-size: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  line-height: 1em;
+}
+
+.createSet>*>input{
+  flex: 3;
+  height: 35px;
+  border-radius: 5px;
+  /* float: right; */
+}
+
+.groupOffset{
+
+}
+
+.createSetBtn{
+  align-self: center;
+}
+
+.setInProgress{
+  background-color: #cecece !important;
+}
+
+.infoSet{
+  background-color: #ceceee !important;
+
+  flex: 1 1 300px !important;
+
+}
+
+
+
+
+
+
+
+
