@@ -1,0 +1,159 @@
+:root{
+  --firstColor: #e23720;
+  --secondColor: #00ccff;
+}
+
+.mainBody{
+  background-color: #fff;
+  height: calc(95vh);
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.createSet{
+  background-color: #ceceee;
+  flex: 1 1 300px;
+  height: 500px;
+  border-radius: 10px;
+  border: 2px solid black;
+  margin: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  /* align-items: center; */
+}
+
+.createSet>*{
+  /* background-color: aquamarine; */
+  /* margin: 10px 10px;
+  padding: 10px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.createSet>*>*{
+  margin: 5px 40px;
+
+}
+
+.createSet>*>label{
+  /* float: left; */
+  flex: 1;
+  font-weight: 200;
+  font-size: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  line-height: 1em;
+}
+
+.createSet>*>input{
+  flex: 3;
+  height: 35px;
+  border-radius: 5px;
+  /* float: right; */
+}
+
+.groupOffset{
+
+}
+
+.createSetBtn{
+  align-self: center;
+}
+
+.setInProgress{
+  background-color: #cecece !important;
+  flex: 1 1 300px;
+  height: 500px;
+  border-radius: 10px;
+  border: 2px solid black;
+  margin: 10px 20px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; */
+  overflow-y: auto;
+}
+
+
+.setInProgress>*{
+  /* background-color: aquamarine; */
+  /* margin: 10px 10px;
+  padding: 10px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 5px;
+}
+
+.setInProgress>*>*{
+  flex: 1;
+  margin: 5px 40px;
+  align-self: flex-start;
+}
+
+.setsDiv{
+  background-color: #ceeace;
+  display: flex;
+}
+
+
+.example-card {
+  /* max-width: 400px; */
+  background-color: azure;
+  /* font-size: small;
+  display: flex; */
+  line-height: 0.9rem;
+  margin: 10px;
+  padding: 0 !important;
+  /* flex-wrap: wra8p; */
+}
+
+.example-card>*{
+  /* flex: 1; */
+}
+
+.setHeader{
+  /* background-color: beige; */
+}
+
+.mainsetDiv{
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+.sets-card{
+  background-color: bisque;
+  margin: 10px !important;
+  padding: 0 !important;
+
+}
+
+.sets-header{
+  background-color: rgb(94, 94, 94);
+  color: white;
+  padding: 10px !important;
+}
+
+.sets-header .title{
+  font-weight: 500;
+  font-size: large;
+}
+
+.sets-content{
+  padding: 10px !important;
+}
+
+.setsButton{
+
+}
+
+
+
+
+
+
+
