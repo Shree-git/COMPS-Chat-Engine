@@ -3,4 +3,5 @@ export interface Message {
   lastName: string;
   message: string;
   createdAt: string;
+  updatedAt?: string;
 }
