@@ -12,11 +12,16 @@ import { AngularFireStorageModule } from '@angular/fire/storage'
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { firebaseConfig } from './firebase'
 import { FormsModule } from '@angular/forms';
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginChatComponent } from './login-chat/login-chat.component';
 import { ChatComponent } from './chat/chat.component';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminMonitorComponent } from './admin-monitor/admin-monitor.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './admin-login/register/register.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +30,9 @@ import { AdminMonitorComponent } from './admin-monitor/admin-monitor.component';
     AdminComponent,
     LoginChatComponent,
     ChatComponent,
-    AdminMonitorComponent
+    AdminMonitorComponent,
+    AdminLoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +42,12 @@ import { AdminMonitorComponent } from './admin-monitor/admin-monitor.component';
     AngularFireStorageModule,
     AngularFireMessagingModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    // FormBuilder,
+    // FormGroup,
+    // Validators
   ],
   providers: [],
   bootstrap: [AppComponent]
