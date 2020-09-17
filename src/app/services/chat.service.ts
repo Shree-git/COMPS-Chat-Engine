@@ -15,7 +15,8 @@ export class ChatService {
   currentGroup
   users: Observable<User[]>
   currentMessageId:string = this.afs.createId();
-  message: Message
+  newMessage: Message
+  updatedMessage: Message
   constructor(private afs: AngularFirestore) { }
 
   login(fName, lName, role, set, group){
@@ -56,7 +57,12 @@ export class ChatService {
   }
 
   updateMessage(currentSet, currentGroup, message: string){
-    this.message = {
+    this.updatedMessage = {
+      message: message,
+      updatedAt: new Date().toISOString(),
+    }
+
+    this.newMessage = {
       firstName: this.currentUser.firstName,
       lastName: this.currentUser.lastName,
       message: message,
@@ -64,7 +70,10 @@ export class ChatService {
     }
 
     return this.afs.collection('sets').doc(currentSet).collection('groups')
-      .doc(currentGroup).collection('messages').doc(this.currentMessageId).set(this.message);
+      .doc(currentGroup).collection('messages').doc(this.currentMessageId).update(this.updatedMessage).catch(err=>{
+        return this.afs.collection('sets').doc(currentSet).collection('groups')
+        .doc(currentGroup).collection('messages').doc(this.currentMessageId).set(this.newMessage);
+      });
   }
 
   getAllUsers(currentSet, currentGroup): Observable<User[]>{
@@ -75,6 +84,7 @@ export class ChatService {
       return actions.map(a => {
         const data = a.payload.doc.data() as User;
         const id = a.payload.doc.id;
+
         return { id, ...data }
       })
     }))

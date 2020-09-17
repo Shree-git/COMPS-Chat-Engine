@@ -24,11 +24,12 @@ export class ChatComponent implements OnInit, AfterContentInit, OnDestroy {
   onAlertTA: boolean;
   firstName: string;
   lastName: string;
+  currentMode: string;
   role: string = 'student';
   constructor(private chatService: ChatService,
-              private activatedRoute: ActivatedRoute,
-              private adminService: AdminService,
-              private router: Router) {
+    private activatedRoute: ActivatedRoute,
+    private adminService: AdminService,
+    private router: Router) {
     this.currentSetName = this.activatedRoute.snapshot.paramMap.get('set')
     this.currentGroupName = this.activatedRoute.snapshot.paramMap.get('group')
     this.firstName = this.activatedRoute.snapshot.paramMap.get('firstName')
@@ -49,7 +50,7 @@ export class ChatComponent implements OnInit, AfterContentInit, OnDestroy {
 
     this.getCurrentSet();
     this.setCurrentUser();
-    if(this.currentSetName && this.currentGroupName && this.firstName && this.lastName){
+    if (this.currentSetName && this.currentGroupName && this.firstName && this.lastName) {
       // this.chatService.login(this.currentSetName, this.currentGroupName, this.firstName, this.lastName)
       console.log("logged in");
     }
@@ -57,44 +58,106 @@ export class ChatComponent implements OnInit, AfterContentInit, OnDestroy {
     setTimeout(this.scrollSmoothToBottom, 500);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.chatService.logOut();
     console.log("logged out")
   }
 
-  getCurrentSet(){
-    this.adminService.getSet(this.currentSetName).subscribe(sets=>{
+  getCurrentSet() {
+    this.adminService.getSet(this.currentSetName).subscribe(sets => {
       this.currentSet = sets;
       this.onAnswerWindow = sets.answerWindow;
       this.onAlertTA = sets.alertTA;
+      this.currentMode = sets.mode;
     })
   }
 
-  logOut(){
-    this.chatService.logOut().then(()=>{
+  logOut() {
+    this.chatService.logOut().then(() => {
       this.router.navigate(['/login-chat'])
     })
   }
 
-  setCurrentUser(){
+  setCurrentUser() {
     this.chatService.setCurrentUser(this.firstName, this.lastName, this.role);
   }
 
   getAllUsers() {
     this.users = this.chatService.getAllUsers(this.currentSetName, this.currentGroupName);
-    this.chatService.getAllUsers(this.currentSetName, this.currentGroupName).subscribe(user=>{
-      console.log(user)
+    var currentUserArray;
+    this.chatService.getAllUsers(this.currentSetName, this.currentGroupName).subscribe(user => {
+      if (currentUserArray == null) {
+        user.sort();
+        currentUserArray = user;
+        console.log("Current Array: ", currentUserArray, currentUserArray.length);
+        console.log("User Array: ", user.length);
+      }
+      else if (currentUserArray != user) {
+        console.log("not equal")
+        console.log("Current Array: ", currentUserArray, currentUserArray.length);
+        console.log("User Array: ", user, user.length);
+
+        for (var i = 0; i < user.length; i++) {
+          var num = 0;
+          for (var j = 0; j < currentUserArray.length; j++) {
+            if(num ==1 ){
+              break;
+            }
+            if (user[i] == currentUserArray[j]) {
+              num = 1;
+
+            }
+
+
+          }
+          if (num == 0) {
+            if (user.length > currentUserArray.length) {
+              var tag = document.createElement("p");
+              var text = document.createTextNode("Someone has joined the chat.");
+              tag.appendChild(text);
+              var element = document.getElementById("groupOff");
+              element.appendChild(tag);
+              console.log("Someone has joined the chat.")
+              num = 1
+              currentUserArray = user;
+              break;
+            } else {
+              var tag = document.createElement("p");
+              var text = document.createTextNode("Someone has left the chat.");
+              tag.appendChild(text);
+              var element = document.getElementById("groupOff");
+              element.appendChild(tag);
+              console.log("Someone has left the chat.")
+              num =1;
+              currentUserArray = user;
+              break;
+            }
+
+          }
+          currentUserArray = user;
+          break;
+
+        }
+
+
+
+        currentUserArray = user;
+        console.log("Current Array: ", currentUserArray, currentUserArray.length);
+        console.log("User Array: ", user, user.length);
+      }
+      console.log(user.length)
+
     });
 
   }
 
   onKey(event: any) {
-    if(this.message != "" && this.message != null){
-    this.chatService.updateMessage(this.currentSetName, this.currentGroupName, event.target.value).then(()=>{
-      setTimeout(this.scrollSmoothToBottom, 100);
+    if (this.message != "" && this.message != null) {
+      this.chatService.updateMessage(this.currentSetName, this.currentGroupName, event.target.value).then(() => {
+        setTimeout(this.scrollSmoothToBottom, 100);
 
-    })
-  }
+      })
+    }
   }
 
   getAllMessages() {
@@ -103,7 +166,7 @@ export class ChatComponent implements OnInit, AfterContentInit, OnDestroy {
 
   sendMessage() {
 
-    if(this.message != "" && this.message != null){
+    if (this.message != "" && this.message != null) {
       console.log(this.message)
       this.chatService.sendMessage(this.currentSetName, this.currentGroupName, this.message);
       this.message = "";

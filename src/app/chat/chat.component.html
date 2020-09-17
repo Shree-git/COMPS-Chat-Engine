@@ -17,6 +17,9 @@
           {{ message.createdAt | date: "short" }}
         </h3>
       </div>
+      <div id="joinMessage">
+
+      </div>
     </div>
     <div class="groups">
       <input
@@ -66,11 +69,14 @@
       </h3>
     </div>
   </div>
-  <div *ngIf="onAlertTA" class="createSet">
+  <div *ngIf="currentMode == 'mode2'" class="createSet">
     <div class="createLabel">
       <h3 class="lead">
-        Alert Ta
+        Private Answer Window
       </h3>
     </div>
+  </div>
+  <div *ngIf="onAlertTA" class="createSet">
+    <button>Alert TA</button>
   </div>
 </div>

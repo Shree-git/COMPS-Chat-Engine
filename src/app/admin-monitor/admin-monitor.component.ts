@@ -19,11 +19,13 @@ export class AdminMonitorComponent implements OnInit {
   selectedSet: string;
   selectedGroup: string;
   role="ta"
+  assignedSets;
   constructor(private adminService: AdminService, private chatService: ChatService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.sets = this.adminService.getAllSets();
+    this.assignedSets = this.adminService.getAdminMonitorSets();
   }
 
   login(){
