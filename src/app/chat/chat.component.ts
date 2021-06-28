@@ -6,7 +6,7 @@ import { Message } from '../models/message.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
 import { Sets } from '../models/sets.model';
-import { ThrowStmt } from '@angular/compiler';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -29,7 +29,8 @@ export class ChatComponent implements OnInit, AfterContentInit, OnDestroy {
   constructor(private chatService: ChatService,
     private activatedRoute: ActivatedRoute,
     private adminService: AdminService,
-    private router: Router) {
+    private router: Router,
+    private location: Location) {
     this.currentSetName = this.activatedRoute.snapshot.paramMap.get('set')
     this.currentGroupName = this.activatedRoute.snapshot.paramMap.get('group')
     this.firstName = this.activatedRoute.snapshot.paramMap.get('firstName')
@@ -74,7 +75,8 @@ export class ChatComponent implements OnInit, AfterContentInit, OnDestroy {
 
   logOut() {
     this.chatService.logOut().then(() => {
-      this.router.navigate(['/login-chat'])
+      // this.router.navigate(['/login-chat'])
+      this.location.back();
     })
   }
 

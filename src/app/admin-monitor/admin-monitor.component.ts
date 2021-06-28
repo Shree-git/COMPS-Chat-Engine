@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Sets } from '../models/sets.model';
 import { ChatService } from '../services/chat.service';
 import { Router } from '@angular/router';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-admin-monitor',
@@ -20,17 +21,19 @@ export class AdminMonitorComponent implements OnInit {
   selectedGroup: string;
   role="ta"
   assignedSets;
-  constructor(private adminService: AdminService, private chatService: ChatService,
+  constructor(private adminService: AdminService, private chatService: ChatService, private accountService: AccountService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.sets = this.adminService.getAllSets();
     this.assignedSets = this.adminService.getAdminMonitorSets();
+    this.firstName = this.accountService.getAccount().fName;
+    this.lastName = this.accountService.getAccount().lName;
   }
 
-  login(){
-    this.chatService.login(this.firstName, this.lastName, this.role, this.selectedSet, this.selectedGroup).then(()=>{
-      this.router.navigate(['/chat/', this.selectedSet, this.selectedGroup, this.firstName, this.lastName])
+  login(assignedSet, group){
+    this.chatService.login(this.firstName, this.lastName, this.role, assignedSet, group).then(()=>{
+      this.router.navigate(['/chat/', assignedSet, group, this.firstName, this.lastName])
     });
   }
 

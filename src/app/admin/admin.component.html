@@ -48,6 +48,73 @@
     </div>
   </div>
 
+  <div class="createSet">
+    <div class="groupOffset">
+      <div class="TANameDiv">
+        <label>TA:</label>
+        <select
+          #taSelect
+
+          class="TA"
+          (change)="onTASelected(taSelect.value)"
+        >
+        <option disabled selected value> -- select an option -- </option>
+          <option *ngFor="let TA of TAs | async">{{TA.id}}</option>
+        </select>
+      </div>
+      <div class="setName">
+        <label>Set</label>
+        <select
+          #setSelect
+
+          class="set"
+          (change)="onSetSelected(setSelect.value)"
+        >
+        <option disabled selected value> -- select an option -- </option>
+          <option *ngFor="let set of sets | async">{{ set.name }}</option>
+        </select>
+      </div>
+      <div class="groups">
+        <label>Groups</label>
+        <mat-button-toggle-group name="modes" multiple (change)="groupsSelect($event)">
+          <mat-button-toggle *ngFor="let group of groups1 | async" value="{{group.groupNumber}}">{{group.groupNumber}}</mat-button-toggle>
+          <!-- <mat-button-toggle value="mode1">Mode 1</mat-button-toggle>
+          <mat-button-toggle value="mode2">Mode 2</mat-button-toggle> -->
+        </mat-button-toggle-group>
+      </div>
+      <!-- <div class="groupName">
+        <label>Group</label>
+        <select
+          #groupSelect
+
+          class="group"
+          (change)="onGroupSelected(groupSelect.value)"
+        >
+        <option disabled selected value> -- select an option -- </option>
+          <option *ngFor="let group of groups1 | async">{{
+            group.groupNumber
+          }}</option>
+        </select>
+      </div> -->
+      <div class="createSetBtn">
+        <!-- <button
+          class="btn btn-lg btn-primary"
+          [disabled]="firstName == '' && lastName == ''"
+          (click)="login()"
+        > -->
+        <button (click)="assignTA()">
+          Assign TA
+        </button>
+      </div>
+    </div>
+    <div class="assignedTAs">
+      <h2>Assigned TAs</h2>
+      <div>
+
+      </div>
+    </div>
+  </div>
+
   <div class="setInProgress">
     <div class="createLabel">
       <h3 class="lead">
@@ -76,8 +143,11 @@
             >Questions: {{ set.answerWindow }}</mat-card-subtitle
           >
           <mat-card-subtitle>Alert TA: {{ set.alertTA }}</mat-card-subtitle>
-
+          <div class="buttons">
           <button mat-raised-button (click)="closeSet(set.name)">Close Set</button>
+          <button mat-raised-button (click)="editSet(set.name)">Edit Set</button>
+          </div>
+
         </mat-card-content>
         <!-- <mat-card-actions class="sets-button">
         <button mat-button (click)="closeSet(set.name)">Close Set</button>
@@ -126,72 +196,6 @@
   </p>
   <a class="btn btn-lg btn-primary" href="" role="button">View tutorial</a> -->
 
-</div>
-<div>
-  <div class="assignTADiv">
-    <div class="TANameDiv">
-      <label>TA:</label>
-      <select
-        #taSelect
-
-        class="TA"
-        (change)="onTASelected(taSelect.value)"
-      >
-      <option disabled selected value> -- select an option -- </option>
-        <option *ngFor="let TA of TAs | async">{{TA.id}}</option>
-      </select>
-    </div>
-    <div class="setName">
-      <label>Set</label>
-      <select
-        #setSelect
-
-        class="set"
-        (change)="onSetSelected(setSelect.value)"
-      >
-      <option disabled selected value> -- select an option -- </option>
-        <option *ngFor="let set of sets | async">{{ set.name }}</option>
-      </select>
-    </div>
-    <div class="groups">
-      <label>Groups</label>
-      <mat-button-toggle-group name="modes" multiple (change)="groupsSelect($event)">
-        <mat-button-toggle *ngFor="let group of groups1 | async" value="{{group.groupNumber}}">{{group.groupNumber}}</mat-button-toggle>
-        <!-- <mat-button-toggle value="mode1">Mode 1</mat-button-toggle>
-        <mat-button-toggle value="mode2">Mode 2</mat-button-toggle> -->
-      </mat-button-toggle-group>
-    </div>
-    <div class="groupName">
-      <label>Group</label>
-      <select
-        #groupSelect
-
-        class="group"
-        (change)="onGroupSelected(groupSelect.value)"
-      >
-      <option disabled selected value> -- select an option -- </option>
-        <option *ngFor="let group of groups1 | async">{{
-          group.groupNumber
-        }}</option>
-      </select>
-    </div>
-    <div class="createSetBtn">
-      <!-- <button
-        class="btn btn-lg btn-primary"
-        [disabled]="firstName == '' && lastName == ''"
-        (click)="login()"
-      > -->
-      <button (click)="assignTA()">
-        Assign TA
-      </button>
-    </div>
-  </div>
-  <div class="assignedTAs">
-    <h2>Assigned TAs</h2>
-    <div>
-
-    </div>
-  </div>
 </div>
 
 

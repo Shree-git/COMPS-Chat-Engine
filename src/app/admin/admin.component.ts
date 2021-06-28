@@ -95,4 +95,8 @@ export class AdminComponent implements OnInit {
   assignTA(){
     this.adminService.assignTA(this.selectedTA, this.selectedSet, this.selectedGroups);
   }
+
+  editSet(set){
+
+  }
 }

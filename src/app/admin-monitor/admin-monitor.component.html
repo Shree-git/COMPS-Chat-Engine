@@ -4,7 +4,7 @@
       <h1>{{ assignedSet.set }}</h1>
       <label>Groups</label>
       <div *ngFor="let group of assignedSet.groups">
-        <h2>{{group}}</h2>
+        <button mat-raised-button (click)="login(assignedSet.set, group)">{{group}}</button>
       </div>
     </div>
   </div>

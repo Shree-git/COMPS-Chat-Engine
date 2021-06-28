@@ -14,12 +14,12 @@ export class ChatService {
   currentSet
   currentGroup
   users: Observable<User[]>
-  currentMessageId:string = this.afs.createId();
+  currentMessageId: string = this.afs.createId();
   newMessage: Message
   updatedMessage: Message
   constructor(private afs: AngularFirestore) { }
 
-  login(fName, lName, role, set, group){
+  login(fName, lName, role, set, group) {
     this.currentUser = {
       firstName: fName,
       lastName: lName,
@@ -32,7 +32,7 @@ export class ChatService {
       .set(this.currentUser);
   }
 
-  setCurrentUser(fName, lName, role){
+  setCurrentUser(fName, lName, role) {
     this.currentUser = {
       firstName: fName,
       lastName: lName,
@@ -40,23 +40,23 @@ export class ChatService {
     }
   }
 
-  sendMessage(currentSet, currentGroup, message: string){
+  sendMessage(currentSet, currentGroup, message: string) {
 
     return this.afs.collection('sets').doc(currentSet).collection('groups')
       .doc(currentGroup).collection('messages').doc(this.currentMessageId.toString()).update({
         message: message
-      }).then(()=>{
+      }).then(() => {
         this.currentMessageId = this.afs.createId();
       })
   }
 
-  logOut(){
+  logOut() {
     return this.afs.collection('sets').doc(this.currentSet).collection('groups')
-    .doc(this.currentGroup).collection('users').doc(this.currentUser.firstName + ' ' + this.currentUser.lastName)
-    .delete();
+      .doc(this.currentGroup).collection('users').doc(this.currentUser.firstName + ' ' + this.currentUser.lastName)
+      .delete();
   }
 
-  updateMessage(currentSet, currentGroup, message: string){
+  updateMessage(currentSet, currentGroup, message: string) {
     this.updatedMessage = {
       message: message,
       updatedAt: new Date().toISOString(),
@@ -69,39 +69,52 @@ export class ChatService {
       createdAt: new Date().toISOString(),
     }
 
+    if (this.updatedMessage.message == '') {
+      return this.afs.collection('sets').doc(currentSet).collection('groups')
+        .doc(currentGroup).collection('messages').doc(this.currentMessageId).delete().catch(err=>{
+          console.log("error in the UPdated Message")
+        });
+    }else{
+
     return this.afs.collection('sets').doc(currentSet).collection('groups')
-      .doc(currentGroup).collection('messages').doc(this.currentMessageId).update(this.updatedMessage).catch(err=>{
-        return this.afs.collection('sets').doc(currentSet).collection('groups')
+      .doc(currentGroup).collection('messages').doc(this.currentMessageId).update(this.updatedMessage)
+      .then(
+
+      )
+      .catch (err=> {
+      console.log("Error in updating the message", err)
+      this.afs.collection('sets').doc(currentSet).collection('groups')
         .doc(currentGroup).collection('messages').doc(this.currentMessageId).set(this.newMessage);
-      });
+    });
+  }
   }
 
-  getAllUsers(currentSet, currentGroup): Observable<User[]>{
+  getAllUsers(currentSet, currentGroup): Observable<User[]> {
     this.currentSet = currentSet;
     this.currentGroup = currentGroup;
     this.users = this.afs.collection('sets').doc(currentSet).collection('groups')
-    .doc(currentGroup).collection('users').snapshotChanges().pipe(map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as User;
-        const id = a.payload.doc.id;
+      .doc(currentGroup).collection('users').snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as User;
+          const id = a.payload.doc.id;
 
-        return { id, ...data }
-      })
-    }))
+          return { id, ...data }
+        })
+      }))
     return this.users;
   }
 
-  getAllMessages(currentSet, currentGroup): Observable<Message[]>{
+  getAllMessages(currentSet, currentGroup): Observable<Message[]> {
     this.currentSet = currentSet;
     this.currentGroup = currentGroup
     return this.afs.collection('sets').doc(currentSet).collection('groups')
-    .doc(currentGroup).collection('messages', ref => ref.orderBy('createdAt', 'asc')).snapshotChanges().pipe(map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Message;
-        const id = a.payload.doc.id;
-        return { id, ...data }
-      })
-    }))
+      .doc(currentGroup).collection('messages', ref => ref.orderBy('createdAt', 'asc')).snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Message;
+          const id = a.payload.doc.id;
+          return { id, ...data }
+        })
+      }))
 
   }
 }
