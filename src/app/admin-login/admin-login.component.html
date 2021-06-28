@@ -1,0 +1,154 @@
+
+
+
+<section class="jumbotron">
+  <div class="registerCard positionCard">
+    <div class="ion-text-center" style="background-color: var(--ion-color-primary);"> <label class="signupLabel">Login</label></div>
+    <div>
+      <ul lines="none">
+        <form [formGroup]="registerForm">
+          <div>
+            <label position="floating">Email</label>
+            <input formControlName="email" type="text" required />
+          </div>
+
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.email">
+              <div
+                class="error-message"
+                *ngIf="registerForm.get('email').hasError(validation.type) && (registerForm.get('email').dirty || registerForm.get('email').touched)"
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+          <div>
+            <label position="floating">Password</label>
+            <input
+              formControlName="password"
+              type="password"
+              required
+            />
+          </div>
+
+          <div class="validation-errors">
+            <ng-container
+              *ngFor="let validation of validation_messages.password"
+            >
+              <div
+                class="error-message"
+                *ngIf="registerForm.get('password').hasError(validation.type) && (registerForm.get('password').dirty || registerForm.get('password').touched)"
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+
+
+
+        </form>
+      </ul>
+      <button
+        expand="full"
+        color="primary"
+        [disabled]="!registerForm.valid"
+        (click)="login()"
+        color="tertiary"
+        >Login</button
+      >
+      <div class="validation-errors">
+
+          <div
+            class="error-message"
+            *ngIf="loginError"
+          >
+            {{ loginErrorMessage }}
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="positionCard" style="margin-top: 50px;">
+    <div class="ion-text-center">
+      <h2>Don't have an account? </h2>
+      <button routerLink="/register" color="tertiary">Sign Up</button>
+      <h2>Forgot your password?</h2>
+      <button routerLink="/reset-password" color="tertiary">Reset Password</button>
+    </div>
+  </div>
+
+  <!-- <ion-card class="card-center">
+    <ion-card-header color="primary">
+
+      <ion-card-title class="ion-text-center">Register</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input type="text" [(ngModel)]="fName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Last Name</ion-label>
+        <ion-input type="text" [(ngModel)]="lName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="text" [(ngModel)]="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" expand="full" fill="solid" [disabled]="email==''&&password==''&&cpassword==''&&fName==''&&lName==''" (click)="register()">Register</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="secondary" expand="full" fill="solid" routerLink="../login">Login</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card> -->
+</section>
+
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Choices</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="card-center">
+    <ion-card>
+      <ion-card-header color="primary">
+
+        <ion-card-title class="ion-text-center">Login</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="text" [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-button color="primary" expand="full" fill="solid" (click)="login()">Login</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary" expand="full" fill="solid" routerLink="../register">Register</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content> -->

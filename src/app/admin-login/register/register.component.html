@@ -1,0 +1,217 @@
+<section class="jumbotron">
+  <div class="registerCard positionCard">
+    <div class="ion-text-center" style="background-color: var(--ion-color-secondary);"><h2 style="margin-bottom: -5px;">Sign Up</h2></div>
+    <div>
+      <ul lines="none">
+        <form [formGroup]="registerForm">
+          <div class="roundedCorners">
+            <label position="floating">First Name</label>
+            <input
+
+              formControlName="firstName"
+              type="text"
+              required
+            >
+          </div>
+
+          <div class="validation-errors">
+            <ng-container
+              *ngFor="let validation of validation_messages.firstName"
+            >
+              <div
+                class="error-message"
+                *ngIf="registerForm.get('firstName').hasError(validation.type) && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)"
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+          <div>
+            <label position="floating">Last Name</label>
+            <input
+              formControlName="lastName"
+              type="text"
+              required
+            >
+          </div>
+
+          <div class="validation-errors">
+            <ng-container
+              *ngFor="let validation of validation_messages.lastName"
+            >
+              <div
+                class="error-message"
+                *ngIf="registerForm.get('lastName').hasError(validation.type) && (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)"
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+
+
+
+
+          <div>
+            <label position="floating">Email</label>
+            <input formControlName="email" type="text" required>
+          </div>
+
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.email">
+              <div
+                class="error-message"
+                *ngIf="registerForm.get('email').hasError(validation.type) && (registerForm.get('email').dirty || registerForm.get('email').touched)"
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+          <div>
+            <label position="floating">Password</label>
+            <input
+              formControlName="password"
+              type="password"
+              required
+            >
+          </div>
+
+          <div class="validation-errors">
+            <ng-container
+              *ngFor="let validation of validation_messages.password"
+            >
+              <div
+                class="error-message"
+                *ngIf="registerForm.get('password').hasError(validation.type) && (registerForm.get('password').dirty || registerForm.get('password').touched)"
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+          <div>
+            <label position="floating">Confirm Password</label>
+            <input
+              formControlName="cpassword"
+              type="password"
+              required
+            >
+          </div>
+
+          <div class="validation-errors">
+            <ng-container
+              *ngFor="let validation of validation_messages.cpassword"
+            >
+              <div
+                class="error-message"
+                *ngIf="registerForm.get('cpassword').hasError(validation.type) && (registerForm.get('cpassword').dirty || registerForm.get('cpassword').touched)"
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+            <div
+              class="error-message"
+              *ngIf="!registerForm.get('cpassword').errors && registerForm.hasError('passwordNotMatch') && (registerForm.get('cpassword').dirty || registerForm.get('cpassword').touched)"
+            >
+              Password and Confirm Password do not match!
+            </div>
+
+
+          </div>
+          <div>
+            <label position="floating">PIN</label>
+            <input
+              formControlName="pinNumber"
+              type="text"
+
+            >
+          </div>
+
+          <div class="validation-errors">
+            <ng-container
+              *ngFor="let validation of validation_messages.pinNumber"
+            >
+              <div
+                class="error-message"
+                *ngIf="registerForm.get('pinNumber').hasError(validation.type) && (registerForm.get('pinNumber').dirty || registerForm.get('pinNumber').touched)"
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+            <div
+            class="error-message"
+            *ngIf="!registerForm.get('pinNumber').errors && registerForm.hasError('pinNotMatch') && (registerForm.get('pinNumber').dirty || registerForm.get('pinNumber').touched)"
+          >
+             PIN not correct
+          </div>
+          </div>
+        </form>
+      </ul>
+      <button
+        expand="full"
+        color="primary"
+        [disabled]="!registerForm.valid"
+        (click)="register()"
+        color="tertiary"
+        >Create Account!</button
+      >
+      <div class="validation-errors">
+
+        <div
+          class="error-message"
+          *ngIf="loginError"
+        >
+          {{ loginErrorMessage }}
+        </div>
+
+    </div>
+    </div>
+  </div>
+
+  <div class="positionCard">
+    <div class="ion-text-center">
+      <h2>Already have an account? <button routerLink="/admin-login" color="tertiary">Login</button></h2>
+
+    </div>
+  </div>
+
+  <!-- <ion-card class="card-center">
+    <ion-card-header color="primary">
+
+      <ion-card-title class="ion-text-center">Register</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <label position="floating">First Name</label>
+        <input type="text" [(ngModel)]="fName"></input>
+      </div>
+      <div>
+        <label position="floating">Last Name</label>
+        <input type="text" [(ngModel)]="lName"></input>
+      </div>
+      <div>
+        <label position="floating">Email</label>
+        <input type="text" [(ngModel)]="email"></input>
+      </div>
+      <div>
+        <label position="floating">Password</label>
+        <input type="password" [(ngModel)]="password"></input>
+      </div>
+      <div>
+        <label position="floating">Confirm Password</label>
+        <input type="password" [(ngModel)]="cpassword"></input>
+      </div>
+      <ion-row>
+        <ion-col>
+          <button color="primary" expand="full" fill="solid" [disabled]="email==''&&password==''&&cpassword==''&&fName==''&&lName==''" (click)="register()">Register</button>
+        </ion-col>
+        <ion-col>
+          <button color="secondary" expand="full" fill="solid" routerLink="../login">Login</button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card> -->
+</section>
+

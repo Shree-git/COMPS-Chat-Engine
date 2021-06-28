@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import { Sets } from '../models/sets.model';
 import { Observable } from 'rxjs';
+import { GsapService } from '../services/gsap.service';
+
 
 @Component({
   selector: 'app-admin',
@@ -17,11 +19,15 @@ export class AdminComponent implements OnInit {
   showAlertTA: boolean = true;
   newSet: Sets;
   sets: Observable<Sets[]>
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private gsapService: GsapService) { }
 
   ngOnInit(): void {
     this.getAllSets();
+    // const tl = new TimelineMax();
+    this.gsapService.fFadeFrom('.mainBody', 1, 0, 1, 0, -50);
   }
+
+
 
   createSet(){
     this.newSet = {
