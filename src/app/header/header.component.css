@@ -6,3 +6,8 @@
 ul li.active{
   background-color: red;
 }
+
+
+.cent{
+  margin: auto;
+}

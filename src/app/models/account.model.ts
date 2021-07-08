@@ -3,4 +3,5 @@ export interface Account{
   fName: string;
   lName: string;
   role?: string;
+  assignedSets?;
 }

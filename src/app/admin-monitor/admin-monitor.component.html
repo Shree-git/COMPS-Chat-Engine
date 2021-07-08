@@ -1,5 +1,14 @@
 <div class="jumbotron mainBody">
-  <div class="createSet">
+  <div>
+    <div *ngFor="let assignedSet of assignedSets | async">
+      <h1>{{ assignedSet.set }}</h1>
+      <label>Groups</label>
+      <div *ngFor="let group of assignedSet.groups">
+        <button mat-raised-button (click)="login(assignedSet.set, group)">{{group}}</button>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="createSet">
     <div class="createLabel">
       <h3 class="lead">
         TA Log In
@@ -11,7 +20,7 @@
     </div>
     <div class="groups">
       <label>Last Name</label>
-      <!-- <input type="number" min="1" max="15" step="1" value="1"> -->
+
       <input type="text" placeholder="Enter last name" [(ngModel)]="lastName" />
     </div>
     <div class="setName">
@@ -49,7 +58,7 @@
         Log In
       </button>
     </div>
-  </div>
+  </div> -->
   <!-- <div class="createSet infoSet">
     <div>
       <h3>Info</h3>

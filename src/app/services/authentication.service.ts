@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AdminUser as User} from '../models/adminUser.model';
 import { Router } from '@angular/router';
 import { app } from 'firebase';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 // import { switchMap } from 'rxjs/operators'
 // import { Observable } from 'rxjs/Observable';
 import { switchMap, take, map } from 'rxjs/operators';
@@ -24,6 +24,8 @@ export class AuthenticationService {
     lName: '',
     role: '',
   }
+  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
+
   constructor(
     private afAuth: AngularFireAuth,
     private afStore: AngularFirestore,
@@ -56,11 +58,12 @@ export class AuthenticationService {
             this.user = user
             localStorage.setItem('user', JSON.stringify(this.user))
             JSON.parse(localStorage.getItem('user'))
-
+            this.loggedIn.next(true)
           }else{
             this.user = null
             localStorage.setItem('user', null)
             this.user = JSON.parse(localStorage.getItem('user'))
+            this.loggedIn.next(false)
           }
         })
 
@@ -259,6 +262,10 @@ export class AuthenticationService {
       })
     }
 
+    get isLoggedIn1() {
+      return this.loggedIn.asObservable(); // {2}
+    }
+
     get isLoggedIn(): boolean {
       const user = JSON.parse(localStorage.getItem('user'))
       return (user !== null) ? true : false
@@ -271,8 +278,9 @@ export class AuthenticationService {
         // this.userData = null
         localStorage.removeItem('user')
         console.log(this.user)
-        window.location.reload();
-        this.router.navigate(['/login'])
+        // window.location.reload();
+        this.loggedIn.next(false);
+        this.router.navigate(['/admin-login'])
       })
     }
 

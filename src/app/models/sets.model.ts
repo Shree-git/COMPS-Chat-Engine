@@ -5,4 +5,5 @@ export interface Sets {
   numQuestions: number;
   answerWindow?: boolean;
   alertTA?: boolean;
+  mode: string;
 }
